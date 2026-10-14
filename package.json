@@ -2,11 +2,25 @@
   "name": "tlooweb",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint . --max-warnings 0",
+    "typecheck": "tsc --noEmit && node scripts/next-tsc.ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "rebuild:trusted": "npm rebuild bcrypt esbuild sharp @parcel/watcher --ignore-scripts=false",
+    "test:eslint-rules": "node --test \"eslint-rules/*.test.js\"",
+    "test:hooks": "node --test \".claude/hooks/__tests__/*.test.mjs\""
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "npm",
+      "version": ">=11.10.0",
+      "onFail": "error"
+    }
   },
   "dependencies": {
     "next": "16.4.0",
@@ -14,13 +28,23 @@
     "react-dom": "19.3.0"
   },
   "devDependencies": {
+    "@eslint-community/eslint-plugin-eslint-comments": "4.8.1",
     "@tailwindcss/turbopack": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.4.0",
+    "@types/node": "26.6.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@typescript-eslint/parser": "8.70.0",
+    "@typescript-eslint/project-service": "8.70.1",
+    "babel-plugin-react-compiler": "1.0.0",
+    "eslint": "10.11.0",
+    "eslint-config-upleveled": "11.0.0",
+    "eslint-plugin-perfectionist": "5.12.1",
+    "eslint-plugin-react-doctor": "0.9.14",
+    "eslint-plugin-react-rsc": "5.20.5",
+    "eslint-plugin-react-web-api": "5.20.5",
+    "globals": "17.12.0",
+    "prettier": "3.9.8",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "6.0.3"
   }
 }

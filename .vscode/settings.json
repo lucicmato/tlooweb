@@ -1,0 +1,16 @@
+{
+  // Derived from: `.vscode/settings.json` in the workshop repo (the two settings below). The OPTIONAL lines at the
+  // end are an ADDITION for the Prettier baseline, they are not in the workshop.
+
+  // Ignore unknown CSS at rules for Tailwind CSS
+  "css.lint.unknownAtRules": "ignore",
+  // Enable Next.js TypeScript plugin: the editor must use the workspace TypeScript, otherwise the `next` plugin
+  // from tsconfig `compilerOptions.plugins` is not loaded. `scripts/next-tsc.ts` runs the same plugin in CI.
+  // https://nextjs.org/docs/app/building-your-application/configuring/typescript#typescript-plugin
+  "typescript.tsdk": "node_modules/typescript/lib"
+
+  // OPTIONAL (ADDITION): format on save with the project's `prettier.config.js`. Put a comma after the setting
+  // above, then uncomment:
+  // "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // "editor.formatOnSave": true
+}

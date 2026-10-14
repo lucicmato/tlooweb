@@ -1,0 +1,42 @@
+{
+  "disabledRules": [],
+  "failClosed": true,
+  "packageManager": "npm",
+  "localDatabaseHosts": ["localhost", "127.0.0.1", "::1", "host.docker.internal"],
+  "formatAndLint": {
+    "enabled": true,
+    "prettier": true,
+    "eslint": true,
+    "eslintArgs": ["--max-warnings", "0"],
+    "eslintExtensions": [".js", ".jsx", ".mjs", ".cjs", ".ts", ".tsx", ".mts", ".cts"],
+    "ignoredPathSegments": ["node_modules", ".next", "dist", "build", "coverage", "out", ".git", ".claude"],
+    "timeoutSeconds": 100,
+    "maxOutputChars": 6000
+  },
+  "stopGate": {
+    "enabled": true,
+    "maxConsecutiveBlocks": 3,
+    "proseExtensions": [".md", ".txt"],
+    "maxOutputChars": 6000,
+    "checks": [
+      {
+        "name": "typecheck",
+        "command": "npm",
+        "args": ["run", "typecheck"],
+        "relevantExtensions": [".js", ".jsx", ".mjs", ".cjs", ".ts", ".tsx", ".mts", ".cts", ".mdx", ".json"],
+        "timeoutSeconds": 600
+      },
+      {
+        "name": "lint",
+        "command": "npm",
+        "args": ["run", "lint"],
+        "relevantExtensions": [".js", ".jsx", ".mjs", ".cjs", ".ts", ".tsx", ".mts", ".cts", ".mdx", ".json"],
+        "timeoutSeconds": 600
+      }
+    ]
+  },
+  "reinjectInstructions": {
+    "files": ["AGENTS.md"],
+    "maxChars": 30000
+  }
+}

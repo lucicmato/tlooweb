@@ -1,0 +1,56 @@
+# CI for a Next.js project: runs the same checks that the agent and the developer run locally, so a skipped local
+# check cannot hide a failure.
+#
+# Derived from: `02-project-config/.github/workflows/ci.yml` of the guardrails kit, without the database, Jest and
+# Playwright steps (the project has none yet). Step ORDER is the guardrail pipeline, see the comments on each step.
+#
+# Actions are pinned by major tag, not by commit SHA (a known gap of the kit file).
+name: CI
+on: push
+
+# Least privilege for the default token, this workflow only reads the repository (kit: commented out, review and enable)
+# permissions:
+#   contents: read
+
+jobs:
+  ci:
+    name: Format, Type Checking, Linting
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      # `lts/*` must be a Node that runs TypeScript files natively (`scripts/next-tsc.ts`)
+      - name: Use Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 'lts/*'
+          cache: 'npm'
+
+      # `npm ci` installs exactly `package-lock.json` and fails when it does not match `package.json`
+      - name: Install dependencies
+        run: npm ci
+      # `.npmrc` has `ignore-scripts=true`, so this re-runs the install scripts of the trusted packages only
+      - name: Run trusted install scripts
+        run: npm run rebuild:trusted
+
+      # Needs no build, so it fails fast
+      - name: Check formatting with Prettier
+        run: npm run format:check
+
+      # The lint step relies on these custom rules
+      - name: ESLint rule tests
+        run: npm run test:eslint-rules
+      # The hooks enforce the agent guardrails, a broken rule must not go unnoticed
+      - name: Claude Code hook tests
+        run: npm run test:hooks
+
+      # Before typecheck and lint: `next build` generates the route types in `.next/types` (`typedRoutes`).
+      # `next build` itself does not type-check (`typescript.ignoreBuildErrors` in next.config.ts), the next step does.
+      - name: Build (types needed for TSC and ESLint)
+        run: npm run build
+      - name: Check TypeScript Types
+        run: npm run typecheck
+      # `eslint . --max-warnings 0`: every warn-level rule fails CI, so an agent cannot leave warnings behind
+      - name: Lint with ESLint
+        run: npm run lint

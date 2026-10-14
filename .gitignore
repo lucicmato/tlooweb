@@ -39,3 +39,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# guardrails
+.eslintcache
+
+# Playwright MCP server output (agents use it)
+.playwright-mcp/
+
+# Git worktrees (agents can work in parallel worktrees)
+/.worktrees/
