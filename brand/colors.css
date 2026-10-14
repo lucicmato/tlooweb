@@ -1,0 +1,46 @@
+/*
+ * TLOWeb brand tokens. Four colours; everything else is derived from them with color-mix, so there is no
+ * fifth colour to drift. Rules for use are in README.md.
+ *
+ * Contrast is measured (WCAG 2.x relative luminance), not estimated:
+ *   ink on paper 15.64, work on paper 6.69, stop on paper 5.65, muted on paper 6.17.
+ * Work and stop only pass on paper. On ink they measure 2.34 and 2.77, so they are never used there.
+ */
+:root {
+  /* Ink: near-black with a trace of blue, so it does not read as pure #000 */
+  --brand-ink: #15181c;
+  /* Paper: warm off-white, never pure #fff */
+  --brand-paper: #f3f0e8;
+  /* Work: muted petrol. Link, rule and one accent per view. Not used as a background fill */
+  --brand-work: #1f5a70;
+  /* Stop: brick red for "no" and warnings. Rare; always next to words, never alone */
+  --brand-stop: #a63a2b;
+
+  /* Derived, not new colours */
+  --brand-ink-muted: color-mix(in srgb, var(--brand-ink) 70%, var(--brand-paper));
+  /* Decorative hairline only (1.40:1). A boundary that carries meaning, such as an input edge, uses -strong */
+  --brand-line: color-mix(in srgb, var(--brand-ink) 16%, var(--brand-paper));
+  --brand-line-strong: color-mix(in srgb, var(--brand-ink) 55%, var(--brand-paper));
+
+  /* Roles: components read these, not the raw colours above */
+  --brand-surface: var(--brand-paper);
+  --brand-text: var(--brand-ink);
+  --brand-link: var(--brand-work);
+  --brand-danger: var(--brand-stop);
+
+  --brand-font-sans: 'Schibsted Grotesk', system-ui, sans-serif;
+  /* System monospace on purpose: it is only for small labels, so it is not worth a second font download */
+  --brand-font-mono: ui-monospace, 'Cascadia Mono', 'SF Mono', Consolas, monospace;
+}
+
+/* Dark surface: used for the logo and for full-bleed bands, not for a dark theme of the whole site */
+.brand-on-ink {
+  --brand-surface: var(--brand-ink);
+  --brand-text: var(--brand-paper);
+  --brand-ink-muted: color-mix(in srgb, var(--brand-paper) 70%, var(--brand-ink));
+  --brand-line: color-mix(in srgb, var(--brand-paper) 22%, var(--brand-ink));
+  --brand-line-strong: color-mix(in srgb, var(--brand-paper) 55%, var(--brand-ink));
+  /* Work and stop fail contrast on ink, so links on ink fall back to paper with an underline */
+  --brand-link: var(--brand-paper);
+  --brand-danger: var(--brand-paper);
+}
