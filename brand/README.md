@@ -2,7 +2,7 @@
 
 Smjer: operativan, ne marketinški. Izgleda kao interni alat koji je netko složio pažljivo. Ime je tekst, nema simbola, maskote ni ilustracije.
 
-Ovo je samo identitet: datoteke u ovom folderu. Stranica ne postoji, pa ni primjena na stranici nije provjerena.
+Ovo su datoteke identiteta. Jedna stranica ih koristi (`app/`), ali samo na mobitelu i u jednom pregledniku je provjerena.
 
 ## Datoteke
 
@@ -58,7 +58,7 @@ Drugo pismo je **sistemski monospace** i samo za sitne oznake: datum, verzija, s
 
 - Tekst: težina 400. Naslovi: težina 600, `letter-spacing: -0.01em`, `line-height: 1.15`.
 - Naslovi se pišu kao u rečenici (veliko samo prvo slovo), bez uskličnika.
-- Učitavanje na stranici: fontovi moraju dolaziti s vlastite domene, ne s Googleova CDN-a u pregledniku (zbog privatnosti posjetitelja). Kako to riješiti u Next.js 16 treba provjeriti u `node_modules/next/dist/docs/` prije pisanja koda. `og.svg` učitava font s Googlea samo zato što je predložak za izvoz slike, ne dio stranice.
+- Učitavanje na stranici: preko `next/font/google` u `app/layout.tsx` (podskupovi `latin` i `latin-ext`). Prema dokumentaciji Next.js 16 se CSS i datoteke fonta preuzimaju pri buildu i služe s vlastite domene, bez zahtjeva preglednika prema Googleu. `og.svg` učitava font s Googlea samo zato što je predložak za izvoz slike, ne dio stranice.
 
 ## Naslovi: ispravno i krivo
 
@@ -101,10 +101,10 @@ Ne smije:
 
 ## Open Graph
 
-`og.svg` je predložak od 1200×630: ime i jedna rečenica („Jedan poslovni proces na webu. Kod ostaje vama.“), uz kratku crtu u radnoj boji. Društvene mreže ne prihvaćaju SVG, pa za objavu treba PNG ili JPEG iste veličine, izvezen iz preglednika dok je font učitan. Kad stranica postoji, taj izvoz se rješava jednom, ne ručno.
+`og.svg` je predložak od 1200×630: ime i jedna rečenica („Jedan poslovni proces na webu. Kod ostaje vama.“), uz kratku crtu u radnoj boji. Društvene mreže ne prihvaćaju SVG, pa za objavu treba PNG ili JPEG iste veličine. PNG je izvezen iz ovog predloška (isti raspored, font učitan) i nalazi se u `app/opengraph-image.png`, a `app/opengraph-image.alt.txt` je njegov alt tekst. Kad se mijenja predložak ili rečenica, PNG se mora ponovno izvesti ručno: nema automatskog koraka.
 
 Nije u opsegu ove isporuke: favicon. Ako zatreba, odluka je posebna (samo `T` ili `TLO` iz wordmarka), jer se `Web` na 16 px ne čita.
 
-## Povezivanje sa stranicom (još nije napravljeno)
+## Povezanost sa stranicom
 
-Kad stranica dođe, `app/globals.css` čita ove tokene u `@theme` i ne definira vlastite hex vrijednosti, da boje imaju jedan izvor. Izvedbu treba provjeriti u dokumentaciji za Tailwind 4 i Next.js 16 prije pisanja.
+`app/globals.css` uvozi `colors.css` i čita tokene u `@theme inline`, a ne definira vlastite hex vrijednosti, pa boje imaju jedan izvor. `components/brand/Wordmark.tsx` je ugrađena kopija `logo.svg`: kad se mijenja wordmark, mijenjaju se oba.

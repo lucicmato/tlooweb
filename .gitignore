@@ -48,3 +48,5 @@ next-env.d.ts
 
 # Git worktrees (agents can work in parallel worktrees)
 /.worktrees/
+/docs/
+/content/
