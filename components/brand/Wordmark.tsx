@@ -1,4 +1,4 @@
-const CLIP_ID = 'wordmark-cap-clip';
+import { useId } from 'react';
 
 type WordmarkProps = {
   className?: string;
@@ -7,13 +7,16 @@ type WordmarkProps = {
 /**
  * Inline copy of `brand/logo.svg` so it takes the surrounding text colour through `currentColor`. It is drawn
  * lettering, not typeset text: replacing it with a heading in the brand typeface would change the proportions between
- * the heavy and the light weight.
+ * the heavy and the light weight. The clip id comes from `useId` because a fixed id would repeat when the wordmark is
+ * rendered twice, and `url(#…)` would then resolve to the first copy even if it is hidden.
  */
 export function Wordmark({ className }: WordmarkProps) {
+  const clipId = useId();
+
   return (
     <svg viewBox="0 -2 530 104" role="img" aria-label="TLOWeb" className={className}>
       <defs>
-        <clipPath id={CLIP_ID}>
+        <clipPath id={clipId}>
           <rect x="-20" y="0" width="570" height="100" />
         </clipPath>
       </defs>
@@ -26,7 +29,7 @@ export function Wordmark({ className }: WordmarkProps) {
         />
       </g>
       <g fill="none" stroke="currentColor" strokeWidth="9">
-        <g clipPath={`url(#${CLIP_ID})`} strokeLinejoin="miter">
+        <g clipPath={`url(#${clipId})`} strokeLinejoin="miter">
           <path d="M262.53 -12L294.77 112" />
           <path d="M320.77 -12L288.53 112" />
           <path d="M314.53 -12L346.77 112" />

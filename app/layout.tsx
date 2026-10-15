@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Schibsted_Grotesk } from 'next/font/google';
 import { pageText } from '@/lib/pageText';
+import { SITE_URL } from '@/lib/siteConfig';
 
 import './globals.css';
 
@@ -12,6 +13,7 @@ const schibstedGrotesk = Schibsted_Grotesk({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: pageText.meta.title,
   description: pageText.hero.subtitle,
   openGraph: {
@@ -30,7 +32,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="hr" className={`${schibstedGrotesk.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col bg-paper font-sans text-lg leading-relaxed text-ink">{children}</body>
+      <body className="flex min-h-full flex-col bg-surface font-sans text-lg leading-relaxed text-text">
+        {children}
+      </body>
     </html>
   );
 }

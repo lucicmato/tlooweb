@@ -1,7 +1,10 @@
 @import 'tailwindcss';
 @import '../brand/colors.css';
 
-/* Colours and the monospace stack come from brand/colors.css; nothing is redefined here, so there is one source */
+/*
+ * Colours and fonts come from brand/colors.css; nothing is redefined here, so there is one source. `inline` makes the
+ * utilities read the role tokens where they are used, so `.brand-on-ink` swaps surface, text and link colours
+ */
 @theme inline {
   --color-ink: var(--brand-ink);
   --color-paper: var(--brand-paper);
@@ -10,11 +13,9 @@
   --color-ink-muted: var(--brand-ink-muted);
   --color-line: var(--brand-line);
   --color-line-strong: var(--brand-line-strong);
-  --font-sans: var(--font-schibsted), system-ui, sans-serif;
+  --color-surface: var(--brand-surface);
+  --color-text: var(--brand-text);
+  --color-link: var(--brand-link);
+  --font-sans: var(--font-schibsted), var(--brand-font-sans);
   --font-mono: var(--brand-font-mono);
-}
-
-body {
-  background: var(--brand-surface);
-  color: var(--brand-text);
 }

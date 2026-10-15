@@ -1,4 +1,5 @@
 import { Wordmark } from '@/components/brand/Wordmark';
+import { SendProcessLink } from '@/components/contact/SendProcessLink';
 import {
   itemHeadingClassName,
   linkClassName,
@@ -6,7 +7,6 @@ import {
   sectionHeadingClassName,
   standaloneLinkClassName,
 } from '@/components/ui/textStyles';
-import { CONTACT_MAILTO } from '@/lib/contactMailto';
 import { pageText } from '@/lib/pageText';
 import { CONTACT_EMAIL, CONTACT_ID, PORTFOLIO_URL } from '@/lib/siteConfig';
 
@@ -19,6 +19,7 @@ const CONTACT_HEADING_ID = 'contact-heading';
 // The 45rem column (720px) holds the text; the side padding keeps it off the screen edge on a phone
 const columnClassName = 'mx-auto w-full max-w-180 px-5';
 const sectionClassName = 'border-t border-line py-12';
+const bulletListClassName = 'list-disc space-y-2 pl-7';
 
 export default function Home() {
   return (
@@ -38,11 +39,7 @@ export default function Home() {
             {pageText.hero.title}
           </h1>
           <p className="mt-6 text-xl text-pretty">{pageText.hero.subtitle}</p>
-          <p className="mt-8">
-            <a href={CONTACT_MAILTO} className={standaloneLinkClassName}>
-              {pageText.sendProcessLabel}
-            </a>
-          </p>
+          <SendProcessLink />
         </section>
 
         <section aria-labelledby={ABOUT_HEADING_ID} className={sectionClassName}>
@@ -75,7 +72,7 @@ export default function Home() {
           <h2 id={NOT_DOING_HEADING_ID} className={sectionHeadingClassName}>
             {pageText.notDoing.title}
           </h2>
-          <ul className="mt-5 list-disc space-y-2 pl-7">
+          <ul className={`mt-5 ${bulletListClassName}`}>
             {pageText.notDoing.items.map((item) => (
               <li key={item}>{item}</li>
             ))}
@@ -87,16 +84,12 @@ export default function Home() {
             {pageText.contact.title}
           </h2>
           <p className="mt-5">{pageText.contact.intro}</p>
-          <ul className="mt-4 list-disc space-y-2 pl-7">
+          <ul className={`mt-4 ${bulletListClassName}`}>
             {pageText.contact.questions.map((question) => (
               <li key={question}>{question}</li>
             ))}
           </ul>
-          <p className="mt-8">
-            <a href={CONTACT_MAILTO} className={standaloneLinkClassName}>
-              {pageText.sendProcessLabel}
-            </a>
-          </p>
+          <SendProcessLink />
           <p className="mt-8">{pageText.contact.ideaNote}</p>
         </section>
       </main>
