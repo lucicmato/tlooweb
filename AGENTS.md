@@ -102,6 +102,18 @@ Inside a group: framework (`next/*`), then third-party, then `@/*`, then relativ
 
 Named exports for components and functions. `export default` only where the framework requires it: Next.js `page.tsx`, `layout.tsx`, `error.tsx` and the other special files, `proxy.ts` (called `middleware.ts` before Next.js 16), and tool config files such as `eslint.config.js` or `eslint.config.mjs`. `route.ts` handlers are named HTTP method exports (`GET`, `POST`): Next.js ignores a default export there. A named export cannot be renamed at the import site, so a search for the component name finds every use.
 
+### Functions
+
+Components and functions are arrow functions assigned to a `const`, not `function` declarations, and every new component starts that way. One form for everything a module defines, and a `const` cannot be reassigned the way a `function` declaration can.
+
+```tsx
+export const TextField = ({ label, error }: TextFieldProps) => {
+  // ...
+};
+```
+
+Next.js special files use the same form with the default export at the bottom: `const Page = async ({ params }: PageProps<'/animals/[animalId]'>) => { ... };`, then `export default Page;`. Route Handlers in `route.ts` stay `export async function GET(request: NextRequest): Promise<NextResponse<Body>>`: the typed-response guardrail matches function declarations only, so an arrow handler would skip the check silently. A generic component in a `.tsx` file needs a comma (`const List = <T,>(props: ListProps<T>) => ...`), otherwise TSX reads `<T>` as a JSX tag. TypeScript overloads and assertion functions (`asserts value is T`) stay `function` declarations. No lint rule enforces this, so apply it by hand. The ESLint config, `eslint-rules/`, `prettier.config.js` and `.claude/hooks/` are copies of the guardrails kit and keep its declarations.
+
 ### Comments
 
 A non-trivial component or util gets a JSDoc block of one to three sentences that stresses the decision the code does not show:

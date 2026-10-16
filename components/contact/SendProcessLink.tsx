@@ -1,17 +1,20 @@
-import { standaloneLinkClassName } from '@/components/ui/textStyles';
-import { CONTACT_MAILTO } from '@/lib/contactMailto';
+import { actionLinkClassName } from '@/components/ui/textStyles';
 import { pageText } from '@/lib/pageText';
 
+type SendProcessLinkProps = {
+  href: string;
+};
+
 /**
- * The page's one call to action, shown in the hero and again under the contact questions. One component keeps both
- * copies on the same prefilled mailto, so the questions in the email always match the ones on the page.
+ * The page's one call to action, shown in the hero and again under the contact questions. The hero copy points to the
+ * questions first; only the contact copy opens the prefilled mail, once the visitor has read what to write.
  */
-export function SendProcessLink() {
+export const SendProcessLink = ({ href }: SendProcessLinkProps) => {
   return (
-    <p className="mt-8">
-      <a href={CONTACT_MAILTO} className={standaloneLinkClassName}>
+    <p className="mt-7">
+      <a href={href} className={actionLinkClassName}>
         {pageText.sendProcessLabel}
       </a>
     </p>
   );
-}
+};

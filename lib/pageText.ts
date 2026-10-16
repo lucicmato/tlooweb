@@ -1,25 +1,91 @@
+const tagline = ['Vaš proces.', 'Vaš alat.', 'Vaši podaci.'] as const;
+
+// The talk card of the diagram and the "ne" answer of the step list say the same thing in two forms
+const untilProcessIsClear = 'dok proces ne postane jasan';
+
 /**
- * All text the page shows. `content/copy.md` is a readable mirror that stays out of git, so keep the two in step. One
- * module, so the mail body and the contact section use the same three questions and cannot drift apart.
+ * All text the page shows.
  */
 export const pageText = {
   meta: {
-    title: 'TLOWeb — jedan poslovni proces na webu',
+    title: `TLOWeb · ${tagline.join(' ')}`,
+  },
+  nav: {
+    label: 'Navigacija',
+    contact: 'Kontakt',
   },
   hero: {
-    title: 'Jedan poslovni proces na webu.',
-    subtitle: 'Vi kažete koji se posao danas radi ručno. Ja ga složim kao alat na webu. Kod i podaci ostaju vama.',
+    titleLines: tagline,
+    lead: 'Posao koji se danas radi ručno pretvaramo u alat na webu.',
+    text: 'Umjesto skupih pretplata i gotovih alata koji ne odgovaraju vašem poslovanju, dobivate rješenje po mjeri koje platite samo jednom.',
   },
   sendProcessLabel: 'Pošalji proces',
   about: {
-    title: 'Što radim',
-    paragraphs: [
-      'Gradim jedan poslovni proces. Vi kažete koji: posao koji se danas radi ručno, u tablici ili preko mailova. Ja ga složim kao alat na webu.',
-      'Sav kod i svi podaci ostaju vama, a proces je u cijelosti vaš.',
-      'AI agent ulazi samo ako je on taj korak u procesu. Čovjek uvijek potvrdi prije nego što se pošalje mail ili plati.',
+    label: 'TLOWeb',
+    title: 'O firmi',
+    text: 'Mi smo TLOWeb. Aktivno se bavimo proizvodnjom softvera za telekomunikacije i financije te alatima za olakšavanje poslovne svakodnevice. To iskustvo ulažemo u alate koji zamjenjuju ručni rad u tablicama i mailovima, bez pretplate. Alat koji složimo održavamo i nakon isporuke, dokle god vam treba i dok god ima novih zahtjeva.',
+    portfolioLabel: 'Pogledajte naš portfolio',
+  },
+  services: {
+    label: '01',
+    title: 'Što radimo',
+    items: [
+      {
+        tag: 'ŠTO GRADIMO',
+        title: 'Alat po mjeri vašeg posla',
+        text: 'Uzmemo posao koji se danas radi ručno, u tablici ili preko mailova, i složimo ga kao alat na webu. Koji posao, birate vi.',
+      },
+      {
+        tag: 'ČIJE JE',
+        title: 'Kod i podaci ostaju vama',
+        text: 'Proces je u cijelosti vaš, a pretplate nema.',
+      },
+      {
+        tag: 'TKO ODLUČUJE',
+        title: 'Čovjek ima zadnju riječ',
+        text: 'AI agent ulazi samo ako je on taj korak u procesu. Prije nego što se pošalje mail ili plati, čovjek uvijek potvrdi.',
+      },
     ],
   },
+  process: {
+    label: '02',
+    title: 'Kako se problem rješava',
+    intro: 'Ako proces još nije jasan, prvo razgovaramo. Sve ostalo ide u tri koraka.',
+    flowTitle: 'Od ručnog posla do alata',
+    today: {
+      label: 'DANAS',
+      title: 'Ručni posao',
+      note: 'u tablicama i mailovima, ili bilo što drugo što vas muči',
+    },
+    send: {
+      label: '1',
+      title: 'Pošaljete proces',
+      linkLabel: 'odgovori na tri pitanja',
+    },
+    decision: {
+      label: 'PITANJE',
+      titleLines: ['Je li proces', 'jasan?'],
+      yes: 'da',
+      yesNote: 'idemo na korak 2',
+      no: 'ne',
+      noNote: `prvo razgovor, ${untilProcessIsClear}`,
+    },
+    talk: {
+      title: 'Razgovor',
+      note: untilProcessIsClear,
+    },
+    build: {
+      label: '2',
+      title: 'Složimo alat na webu',
+    },
+    own: {
+      label: '3',
+      title: 'Proces je vaš',
+      note: 'sav kod i svi podaci',
+    },
+  },
   examples: {
+    label: '03',
     title: 'Primjeri',
     intro: 'Tri vrste procesa, kao primjer. Ovo nije popis gotovih projekata.',
     items: [
@@ -37,23 +103,22 @@ export const pageText = {
       },
     ],
   },
-  notDoing: {
-    title: 'Ne radim',
-    items: ['web stranice i vizitke', 'WordPress', 'usluge na pretplatu', 'agente koji sami šalju mail ili plaćaju'],
-  },
   contact: {
+    label: '04',
     title: 'Kontakt',
     intro: 'Odgovorite na tri pitanja, dovoljno je nekoliko rečenica:',
     questions: ['Koji se posao danas radi ručno?', 'Što ulazi i što mora izaći?', 'Tko to danas radi?'],
-    ideaNote:
-      'Proces još nije jasan? Ako imate ideju, ali ne i jasan proces, javite se: razgovaramo o tome što bi to bilo kao jedan poslovni proces na webu.',
-  },
-  nav: {
-    label: 'Navigacija',
-    contact: 'Kontakt',
+    ideaNote: 'Proces još nije jasan? Ako imate ideju, ali ne i jasan proces, javite se pa ćemo ga zajedno razjasniti.',
   },
   footer: {
-    name: 'Mato Lučić',
-    portfolioLabel: 'Portfolio',
+    taglineLines: tagline,
+    emailLabel: 'E-MAIL',
+    portfolioLabel: 'PORTFOLIO',
+    portfolioLinkLabel: 'Pogledajte naše radove',
+    // The year is written out, not computed: it is part of the approved copy and changes with a release, not a clock
+    copyright: '© 2026 TLOWeb',
+    backToTop: 'Na vrh ↑',
   },
 } as const;
+
+export const metaDescription = `${pageText.hero.lead} ${pageText.hero.text}`;

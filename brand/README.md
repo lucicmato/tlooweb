@@ -32,6 +32,8 @@ Ne radi s wordmarkom: rastezanje, izvlačenje obrisa (outline), sjene, gradijent
 
 Najviše četiri. Sve ostalo se izvodi iz njih (`color-mix` u `colors.css`), da nema pete boje koja se potiho pojavi.
 
+Iznimka (16. 10. 2026.): dizajn naslovne stranice koristi dvije površine koje se ne mogu dobiti miješanjem tinte i papira, `--brand-paper-raised` (`#faf8f3`, kartica u dijagramu procesa) i `--brand-paper-sunk` (`#dcd7cb`, pitanje u dijagramu). Samo za površine, nikad za tekst ni crtu.
+
 | Token           | Vrijednost | Uloga                                             | Kontrast na papiru |
 | --------------- | ---------- | ------------------------------------------------- | ------------------ |
 | `--brand-ink`   | `#15181c`  | Tinta: tekst, wordmark, tamna podloga             | 15.64              |
@@ -101,7 +103,7 @@ Ne smije:
 
 ## Open Graph
 
-`og.svg` je predložak od 1200×630: ime i jedna rečenica („Jedan poslovni proces na webu. Kod ostaje vama.“), uz kratku crtu u radnoj boji. Društvene mreže ne prihvaćaju SVG, pa za objavu treba PNG ili JPEG iste veličine. PNG je izvezen iz ovog predloška (isti raspored, font učitan) i nalazi se u `app/opengraph-image.png`, a `app/opengraph-image.alt.txt` je njegov alt tekst. Kad se mijenja predložak ili rečenica, PNG se mora ponovno izvesti ručno: nema automatskog koraka.
+`og.svg` je predložak od 1200×630: ime i slogan u tri retka („Vaš proces. Vaš alat. Vaši podaci.“), uz kratku crtu u radnoj boji. Društvene mreže ne prihvaćaju SVG, pa za objavu treba PNG ili JPEG iste veličine. PNG je izvezen iz ovog predloška (isti raspored, font učitan) i nalazi se u `app/opengraph-image.png`, a `app/opengraph-image.alt.txt` je njegov alt tekst. Kad se mijenja predložak ili rečenica, PNG se mora ponovno izvesti ručno: nema automatskog koraka.
 
 Nije u opsegu ove isporuke: favicon. Ako zatreba, odluka je posebna (samo `T` ili `TLO` iz wordmarka), jer se `Web` na 16 px ne čita.
 

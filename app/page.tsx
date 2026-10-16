@@ -1,110 +1,30 @@
-import { Wordmark } from '@/components/brand/Wordmark';
-import { SendProcessLink } from '@/components/contact/SendProcessLink';
-import {
-  itemHeadingClassName,
-  linkClassName,
-  pageHeadingClassName,
-  sectionHeadingClassName,
-  standaloneLinkClassName,
-} from '@/components/ui/textStyles';
-import { pageText } from '@/lib/pageText';
-import { CONTACT_EMAIL, CONTACT_ID, PORTFOLIO_URL } from '@/lib/siteConfig';
+import { AboutSection } from '@/components/home/AboutSection';
+import { ContactSection } from '@/components/home/ContactSection';
+import { ExamplesSection } from '@/components/home/ExamplesSection';
+import { HeroSection } from '@/components/home/HeroSection';
+import { ProcessSection } from '@/components/home/ProcessSection';
+import { ServicesSection } from '@/components/home/ServicesSection';
+import { SiteFooter } from '@/components/layout/SiteFooter';
+import { SiteHeader } from '@/components/layout/SiteHeader';
+import { pageContainerClassName } from '@/components/ui/layoutStyles';
 
-const HERO_HEADING_ID = 'hero-heading';
-const ABOUT_HEADING_ID = 'about-heading';
-const EXAMPLES_HEADING_ID = 'examples-heading';
-const NOT_DOING_HEADING_ID = 'not-doing-heading';
-const CONTACT_HEADING_ID = 'contact-heading';
-
-// The 45rem column (720px) holds the text; the side padding keeps it off the screen edge on a phone
-const columnClassName = 'mx-auto w-full max-w-180 px-5';
-const sectionClassName = 'border-t border-line py-12';
-const bulletListClassName = 'list-disc space-y-2 pl-7';
-
-export default function Home() {
+const Home = () => {
   return (
     <>
-      <header className={`${columnClassName} flex items-center justify-between py-6`}>
-        <Wordmark className="h-5 w-auto" />
-        <nav aria-label={pageText.nav.label}>
-          <a href={`#${CONTACT_ID}`} className={standaloneLinkClassName}>
-            {pageText.nav.contact}
-          </a>
-        </nav>
-      </header>
+      <SiteHeader />
 
-      <main className={`${columnClassName} flex-1`}>
-        <section aria-labelledby={HERO_HEADING_ID} className="pt-10 pb-16 sm:pt-20">
-          <h1 id={HERO_HEADING_ID} className={pageHeadingClassName}>
-            {pageText.hero.title}
-          </h1>
-          <p className="mt-6 text-xl text-pretty">{pageText.hero.subtitle}</p>
-          <SendProcessLink />
-        </section>
-
-        <section aria-labelledby={ABOUT_HEADING_ID} className={sectionClassName}>
-          <h2 id={ABOUT_HEADING_ID} className={sectionHeadingClassName}>
-            {pageText.about.title}
-          </h2>
-          <div className="mt-5 space-y-4">
-            {pageText.about.paragraphs.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </div>
-        </section>
-
-        <section aria-labelledby={EXAMPLES_HEADING_ID} className={sectionClassName}>
-          <h2 id={EXAMPLES_HEADING_ID} className={sectionHeadingClassName}>
-            {pageText.examples.title}
-          </h2>
-          <p className="mt-5">{pageText.examples.intro}</p>
-          <ol className="mt-8 list-decimal space-y-8 pl-7 marker:font-semibold">
-            {pageText.examples.items.map((item) => (
-              <li key={item.title}>
-                <h3 className={itemHeadingClassName}>{item.title}</h3>
-                <p className="mt-1">{item.text}</p>
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        <section aria-labelledby={NOT_DOING_HEADING_ID} className={sectionClassName}>
-          <h2 id={NOT_DOING_HEADING_ID} className={sectionHeadingClassName}>
-            {pageText.notDoing.title}
-          </h2>
-          <ul className={`mt-5 ${bulletListClassName}`}>
-            {pageText.notDoing.items.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </section>
-
-        <section id={CONTACT_ID} aria-labelledby={CONTACT_HEADING_ID} className={sectionClassName}>
-          <h2 id={CONTACT_HEADING_ID} className={sectionHeadingClassName}>
-            {pageText.contact.title}
-          </h2>
-          <p className="mt-5">{pageText.contact.intro}</p>
-          <ul className={`mt-4 ${bulletListClassName}`}>
-            {pageText.contact.questions.map((question) => (
-              <li key={question}>{question}</li>
-            ))}
-          </ul>
-          <SendProcessLink />
-          <p className="mt-8">{pageText.contact.ideaNote}</p>
-        </section>
+      <main className={pageContainerClassName}>
+        <HeroSection />
+        <AboutSection />
+        <ServicesSection />
+        <ProcessSection />
+        <ExamplesSection />
+        <ContactSection />
       </main>
 
-      <footer className={`${columnClassName} border-t border-line py-8 text-base text-ink-muted`}>
-        <p className="flex flex-wrap gap-x-4 gap-y-1">
-          <span>{pageText.footer.name}</span>
-          <a href={PORTFOLIO_URL} className={linkClassName}>
-            {pageText.footer.portfolioLabel}
-          </a>
-          <a href={`mailto:${CONTACT_EMAIL}`} className={linkClassName}>
-            {CONTACT_EMAIL}
-          </a>
-        </p>
-      </footer>
+      <SiteFooter />
     </>
   );
-}
+};
+
+export default Home;

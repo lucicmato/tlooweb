@@ -8,6 +8,8 @@
 @theme inline {
   --color-ink: var(--brand-ink);
   --color-paper: var(--brand-paper);
+  --color-paper-raised: var(--brand-paper-raised);
+  --color-paper-sunk: var(--brand-paper-sunk);
   --color-work: var(--brand-work);
   --color-stop: var(--brand-stop);
   --color-ink-muted: var(--brand-ink-muted);
@@ -15,7 +17,67 @@
   --color-line-strong: var(--brand-line-strong);
   --color-surface: var(--brand-surface);
   --color-text: var(--brand-text);
+  --color-text-soft: var(--brand-text-soft);
   --color-link: var(--brand-link);
   --font-sans: var(--font-schibsted), var(--brand-font-sans);
   --font-mono: var(--brand-font-mono);
+}
+
+/*
+ * Type scale and layout of the homepage design (see the design handoff). Sizes that the design leaves to inherit the
+ * body line height carry 1.6 explicitly, because a Tailwind size utility would otherwise bring its own line height.
+ * Text sizes are in rem like Tailwind's spacing, so the process diagram's text and its rem-sized canvas grow together
+ * when a reader raises the default font size; at the default 16px they are the design's pixel values.
+ */
+@theme {
+  --leading-body: 1.6;
+  --tracking-label: 0.06em;
+
+  --text-display: clamp(2.6rem, 6.4vw, 5.5rem);
+  --text-display--line-height: 1.02;
+  --text-display--letter-spacing: -0.025em;
+  --text-h2: 1.75rem;
+  --text-h2--line-height: 1.15;
+  --text-h2--letter-spacing: -0.01em;
+  --text-h3: 1.375rem;
+  --text-h3--line-height: 1.2;
+  --text-h3--letter-spacing: -0.01em;
+  --text-item: 1.125rem;
+  --text-item--line-height: 1.35;
+  --text-lead: 1.25rem;
+  --text-lead--line-height: 1.5;
+  --text-intro: clamp(1.1875rem, 1rem + 0.8vw, 1.375rem);
+  --text-intro--line-height: 1.5;
+  --text-action: 1.0625rem;
+  --text-action--line-height: 1.6;
+  --text-note: 0.9375rem;
+  --text-note--line-height: 1.5;
+  --text-label: 0.8125rem;
+  --text-label--line-height: 1.5;
+  --text-label-sm: 0.75rem;
+  --text-label-sm--line-height: 1.5;
+
+  /* The process cards keep one 22px line box for every size inside them, so the rows line up across cards */
+  --text-card: 1rem;
+  --text-card--line-height: 1.375rem;
+  --text-card-note: 0.9375rem;
+  --text-card-note--line-height: 1.375rem;
+  --text-card-label: 0.75rem;
+  --text-card-label--line-height: 1.375rem;
+  --text-card-mark: 0.8125rem;
+  --text-card-mark--line-height: 1rem;
+
+  /* 1200px of content: the design measures it without the 20px side padding, Tailwind's border-box includes it */
+  --container-page: calc(1200px + 2 * 20px);
+
+  --spacing-hero-top: clamp(48px, 7vw, 88px);
+  --spacing-hero-bottom: clamp(40px, 5vw, 72px);
+  --spacing-box-x: clamp(20px, 5vw, 32px);
+  --spacing-box-y: clamp(20px, 4vw, 28px);
+
+  /*
+   * Below 600px the process diagram (540px canvas) no longer fits and the step list replaces it. In rem like Tailwind's
+   * own breakpoints: Tailwind orders breakpoints by unit before value, so a px one would sort before every rem one
+   */
+  --breakpoint-diagram: 37.5rem;
 }

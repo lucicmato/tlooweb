@@ -1,6 +1,7 @@
 /*
  * TLOWeb brand tokens. Four colours; everything else is derived from them with color-mix, so there is no
- * fifth colour to drift. Rules for use are in README.md.
+ * fifth colour to drift. The only exceptions are the surface tints `--brand-paper-raised` and `--brand-paper-sunk`,
+ * which the homepage design fixes as exact values. Rules for use are in README.md.
  *
  * Contrast is measured (WCAG 2.x relative luminance), not estimated:
  *   ink on paper 15.64, work on paper 6.69, stop on paper 5.65, muted on paper 6.17.
@@ -22,9 +23,18 @@
   --brand-line: color-mix(in srgb, var(--brand-ink) 16%, var(--brand-paper));
   --brand-line-strong: color-mix(in srgb, var(--brand-ink) 55%, var(--brand-paper));
 
+  /*
+   * The two exceptions to the four-colour rule (README.md): the homepage design uses these exact tints for the cards
+   * and the decision in the process diagram, and no mix of ink and paper reproduces them. Surfaces only, never text
+   */
+  --brand-paper-raised: #faf8f3;
+  --brand-paper-sunk: #dcd7cb;
+
   /* Roles: components read these, not the raw colours above */
   --brand-surface: var(--brand-paper);
   --brand-text: var(--brand-ink);
+  /* Secondary text that sits next to the muted labels; on paper they are the same tone */
+  --brand-text-soft: var(--brand-ink-muted);
   --brand-link: var(--brand-work);
   --brand-danger: var(--brand-stop);
 
@@ -38,6 +48,8 @@
   --brand-surface: var(--brand-ink);
   --brand-text: var(--brand-paper);
   --brand-ink-muted: color-mix(in srgb, var(--brand-paper) 70%, var(--brand-ink));
+  /* Lighter than the muted labels on ink, so a description stays a step above its label */
+  --brand-text-soft: color-mix(in srgb, var(--brand-paper) 84%, var(--brand-ink));
   --brand-line: color-mix(in srgb, var(--brand-paper) 22%, var(--brand-ink));
   --brand-line-strong: color-mix(in srgb, var(--brand-paper) 55%, var(--brand-ink));
   /* Work and stop fail contrast on ink, so links on ink fall back to paper with an underline */

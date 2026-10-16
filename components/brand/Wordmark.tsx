@@ -10,7 +10,7 @@ type WordmarkProps = {
  * the heavy and the light weight. The clip id comes from `useId` because a fixed id would repeat when the wordmark is
  * rendered twice, and `url(#…)` would then resolve to the first copy even if it is hidden.
  */
-export function Wordmark({ className }: WordmarkProps) {
+export const Wordmark = ({ className }: WordmarkProps) => {
   const clipId = useId();
 
   return (
@@ -41,4 +41,4 @@ export function Wordmark({ className }: WordmarkProps) {
       </g>
     </svg>
   );
-}
+};
