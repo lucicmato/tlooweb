@@ -16,6 +16,9 @@
  * - no `../` imports, use the `@/*` alias (`no-restricted-imports`)
  * - file names: `PascalCase.tsx` for components, `camelCase.ts` for everything else (`unicorn/filename-case`) and a
  *   component file exports a name equal to its file name (custom rule `conventions/file-name-matches-export`)
+ * - components and functions as arrow functions assigned to a `const`, with the exceptions of the convention built in
+ *   (Route Handlers, overloads, assertion functions, generators, `this`) and an autofix (custom rule
+ *   `conventions/prefer-arrow-function`). The kit's own files keep their declarations, see `KIT_FILES`
  * - comments and identifiers in English, as a heuristic for Croatian diacritics (custom rule `conventions/english-only`)
  * - a blank line after the `'use client'` / `'use server'` directive (`@stylistic/padding-line-between-statements`)
  * - OPT-IN: a named constant for duplicated string literals (`sonarjs/no-duplicate-string`, see `duplicateStringThreshold`)
@@ -29,8 +32,19 @@ import perfectionist from 'eslint-plugin-perfectionist';
 import { englishOnly } from './eslint-rules/english-only.js';
 import { fileNameMatchesExport } from './eslint-rules/file-name-matches-export.js';
 import { noDefaultExport } from './eslint-rules/no-default-export.js';
+import { preferArrowFunction } from './eslint-rules/prefer-arrow-function.js';
 
 const CODE_FILES = '**/*.{js,jsx,cjs,mjs,ts,tsx,cts,mts}';
+
+// Copies of the guardrails kit, written with `function` declarations like the workshop they come from. They are
+// replaced as a whole when the kit changes, so rewriting them here would only create a diff against the kit
+const KIT_FILES = [
+  'eslint.config.{js,mjs}',
+  'eslint.conventions.js',
+  'prettier.config.js',
+  'eslint-rules/**',
+  '.claude/**',
+];
 
 // Next.js App Router files (Next.js 16) that REQUIRE a default export, according to the docs
 // (`next/dist/docs/01-app/03-api-reference/03-file-conventions/`): page, layout, template, loading, error, global-error,
@@ -106,6 +120,7 @@ const conventionsPlugin = {
     'english-only': englishOnly,
     'file-name-matches-export': fileNameMatchesExport,
     'no-default-export': noDefaultExport,
+    'prefer-arrow-function': preferArrowFunction,
   },
 };
 
@@ -254,6 +269,15 @@ export function createConventionsConfig({
       rules: {
         // `animalPages.spec.ts` and `next.config.ts` pass: only the part before the first dot is checked
         'unicorn/filename-case': ['error', { case: 'camelCase', checkDirectories: false }],
+      },
+    },
+    {
+      name: 'conventions/arrow-functions',
+      files: [inApp(CODE_FILES)],
+      ignores: [inApp('**/*.d.ts'), ...KIT_FILES.map((glob) => inApp(glob))],
+      plugins: { conventions: conventionsPlugin },
+      rules: {
+        'conventions/prefer-arrow-function': 'error',
       },
     },
     {
