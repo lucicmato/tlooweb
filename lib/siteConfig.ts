@@ -3,12 +3,10 @@
  * real domain could reach a stranger, while `.example` can never be registered. Both must be replaced before the page
  * is published; `SITE_URL` is the origin that social crawlers fetch the Open Graph image from.
  */
-export const CONTACT_EMAIL = 'kontakt@tloweb.example';
+export const CONTACT_EMAIL = 'info@tloweb.com';
 export const SITE_URL = 'https://tloweb.example';
 
 export const PORTFOLIO_URL = 'https://mato-lucic.vercel.app/';
-
-export const MAIL_SUBJECT = 'Proces za TLOWeb';
 
 export const CONTACT_ID = 'kontakt';
 

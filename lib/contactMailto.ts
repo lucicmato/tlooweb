@@ -1,12 +1,16 @@
+import type { PageText } from '@/lib/i18n/pageText';
 import { mailtoHref } from '@/lib/mailtoHref';
-import { pageText } from '@/lib/pageText';
-import { CONTACT_EMAIL, MAIL_SUBJECT } from '@/lib/siteConfig';
+import { CONTACT_EMAIL } from '@/lib/siteConfig';
 
 // CRLF is what RFC 6068 prescribes for line breaks in a mailto body
 const LINE_BREAK = '\r\n';
 
-const body = pageText.contact.questions
-  .map((question, index) => `${index + 1}. ${question}`)
-  .join(LINE_BREAK + LINE_BREAK);
-
-export const CONTACT_MAILTO = mailtoHref(CONTACT_EMAIL, { subject: MAIL_SUBJECT, body });
+/**
+ * The prefilled mail repeats the contact questions as a numbered list, in the language of the page the visitor came
+ * from, so the questions in the mail always match the ones on the screen.
+ */
+export const contactMailto = ({ questions, mailSubject }: PageText['contact']) =>
+  mailtoHref(CONTACT_EMAIL, {
+    subject: mailSubject,
+    body: questions.map((question, index) => `${index + 1}. ${question}`).join(LINE_BREAK + LINE_BREAK),
+  });

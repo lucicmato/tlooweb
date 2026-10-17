@@ -12,7 +12,7 @@ Ovo su datoteke identiteta. Jedna stranica ih koristi (`app/`), ali samo na mobi
 | `logo.svg`       | Wordmark u `currentColor`. Za SVG ugrađen u HTML: preuzima boju teksta oko sebe, pa radi na svakoj podlozi. |
 | `logo-ink.svg`   | Wordmark u tinti. Za svijetlu podlogu kad se koristi kao slika (`<img>`, dokument, PDF).                    |
 | `logo-paper.svg` | Wordmark u papiru. Za tamnu podlogu kad se koristi kao slika.                                               |
-| `og.svg`         | Predložak za društvene mreže, 1200×630. Nije gotova slika: vidi „Open Graph“ niže.                          |
+| `fonts/`         | Schibsted Grotesk Medium kao statički TTF, s licencom (`OFL.txt`). Samo za sliku za dijeljenje linka.       |
 
 Zašto tri logotipa: SVG učitan kao slika ne vidi boju stranice oko sebe, a `prefers-color-scheme` prati sustav, ne podlogu. Zato boja ide ili iz okoline (`logo.svg` ugrađen), ili je fiksna u datoteci.
 
@@ -56,11 +56,11 @@ Pravila:
 
 Jedno pismo: **Schibsted Grotesk**. Odabran je kao miran grotesk s karakterom (blago raširene završnice), a ne kao zadani sans. Hrvatski znakovi `č ć š đ ž` prikazani su ispravno (provjereno u specimenu, uz tri druga kandidata: Hanken Grotesk, Instrument Sans, IBM Plex Sans).
 
-Drugo pismo je **sistemski monospace** i samo za sitne oznake: datum, verzija, status. Ne za naslove ni za tekst. Ne više od dva pisma.
+Drugo pismo je **sistemski monospace** i samo za sitne oznake: datum, verzija, status, oznaka jezika (`HR / EN`). Ne za naslove ni za tekst. Ne više od dva pisma.
 
 - Tekst: težina 400. Naslovi: težina 600, `letter-spacing: -0.01em`, `line-height: 1.15`.
 - Naslovi se pišu kao u rečenici (veliko samo prvo slovo), bez uskličnika.
-- Učitavanje na stranici: preko `next/font/google` u `app/layout.tsx` (podskupovi `latin` i `latin-ext`). Prema dokumentaciji Next.js 16 se CSS i datoteke fonta preuzimaju pri buildu i služe s vlastite domene, bez zahtjeva preglednika prema Googleu. `og.svg` učitava font s Googlea samo zato što je predložak za izvoz slike, ne dio stranice.
+- Učitavanje na stranici: preko `next/font/google` u `app/[lang]/layout.tsx` (podskupovi `latin` i `latin-ext`). Prema dokumentaciji Next.js 16 se CSS i datoteke fonta preuzimaju pri buildu i služe s vlastite domene, bez zahtjeva preglednika prema Googleu. Slika za dijeljenje linka koristi statički rez iz `fonts/` (preuzet iz službenog repozitorija [schibsted/schibsted-grotesk](https://github.com/schibsted/schibsted-grotesk)), jer generator slike ne čita woff2 ni odabranu težinu varijabilnog fonta.
 
 ## Naslovi: ispravno i krivo
 
@@ -88,7 +88,7 @@ Smije:
 
 - tekst, tanka crta i razmak kao jedini ukras;
 - jedna radna boja po prikazu: link, crta ili naglasak;
-- monospace za datum, verziju i status;
+- monospace za datum, verziju, status i oznaku jezika;
 - tamna traka s papirnim tekstom.
 
 Ne smije:
@@ -103,7 +103,9 @@ Ne smije:
 
 ## Open Graph
 
-`og.svg` je predložak od 1200×630: ime i slogan u tri retka („Vaš proces. Vaš alat. Vaši podaci.“), uz kratku crtu u radnoj boji. Društvene mreže ne prihvaćaju SVG, pa za objavu treba PNG ili JPEG iste veličine. PNG je izvezen iz ovog predloška (isti raspored, font učitan) i nalazi se u `app/opengraph-image.png`, a `app/opengraph-image.alt.txt` je njegov alt tekst. Kad se mijenja predložak ili rečenica, PNG se mora ponovno izvesti ručno: nema automatskog koraka.
+Slika za dijeljenje linka (1200×630) generira se iz koda, za svaki jezik posebno: `app/[lang]/opengraph-image.tsx`. Raspored je onaj iz nekadašnjeg predloška `og.svg`: wordmark (`logo-ink.svg`), kratka crta u radnoj boji i slogan u tri retka iz rječnika (`lib/i18n/hr.ts`, `lib/i18n/en.ts`), „Vaš proces. Vaš alat. Vaši podaci.“ i „Your process. Your tool. Your data.“. Boje se čitaju iz `colors.css`, font iz `fonts/`. Slike nastaju pri buildu (`/hr/opengraph-image`, `/en/opengraph-image`), pa ručnog izvoza više nema: promjena slogana u rječniku mijenja i sliku.
+
+Alt tekst i URL slike postavlja `generateMetadata` u `app/[lang]/page.tsx`, ne konvencija `opengraph-image`, jer konvencija daje isti alt tekst za oba jezika.
 
 Nije u opsegu ove isporuke: favicon. Ako zatreba, odluka je posebna (samo `T` ili `TLO` iz wordmarka), jer se `Web` na 16 px ne čita.
 

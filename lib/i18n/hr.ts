@@ -4,15 +4,14 @@ const tagline = ['Vaš proces.', 'Vaš alat.', 'Vaši podaci.'] as const;
 const untilProcessIsClear = 'dok proces ne postane jasan';
 
 /**
- * All text the page shows.
+ * Croatian copy, the source language: `PageText` is derived from this object, so the English dictionary has to match
+ * its shape down to the number of lines in the tagline.
  */
-export const pageText = {
-  meta: {
-    title: `TLOWeb · ${tagline.join(' ')}`,
-  },
+export const hr = {
   nav: {
     label: 'Navigacija',
     contact: 'Kontakt',
+    languageLabel: 'Jezik',
   },
   hero: {
     titleLines: tagline,
@@ -21,13 +20,11 @@ export const pageText = {
   },
   sendProcessLabel: 'Pošalji proces',
   about: {
-    label: 'TLOWeb',
     title: 'O firmi',
     text: 'Mi smo TLOWeb. Aktivno se bavimo proizvodnjom softvera za telekomunikacije i financije te alatima za olakšavanje poslovne svakodnevice. To iskustvo ulažemo u alate koji zamjenjuju ručni rad u tablicama i mailovima, bez pretplate. Alat koji složimo održavamo i nakon isporuke, dokle god vam treba i dok god ima novih zahtjeva.',
     portfolioLabel: 'Pogledajte naš portfolio',
   },
   services: {
-    label: '01',
     title: 'Što radimo',
     items: [
       {
@@ -48,7 +45,6 @@ export const pageText = {
     ],
   },
   process: {
-    label: '02',
     title: 'Kako se problem rješava',
     intro: 'Ako proces još nije jasan, prvo razgovaramo. Sve ostalo ide u tri koraka.',
     flowTitle: 'Od ručnog posla do alata',
@@ -58,7 +54,6 @@ export const pageText = {
       note: 'u tablicama i mailovima, ili bilo što drugo što vas muči',
     },
     send: {
-      label: '1',
       title: 'Pošaljete proces',
       linkLabel: 'odgovori na tri pitanja',
     },
@@ -75,17 +70,14 @@ export const pageText = {
       note: untilProcessIsClear,
     },
     build: {
-      label: '2',
       title: 'Složimo alat na webu',
     },
     own: {
-      label: '3',
       title: 'Proces je vaš',
       note: 'sav kod i svi podaci',
     },
   },
   examples: {
-    label: '03',
     title: 'Primjeri',
     intro: 'Tri vrste procesa, kao primjer. Ovo nije popis gotovih projekata.',
     items: [
@@ -104,21 +96,17 @@ export const pageText = {
     ],
   },
   contact: {
-    label: '04',
     title: 'Kontakt',
     intro: 'Odgovorite na tri pitanja, dovoljno je nekoliko rečenica:',
     questions: ['Koji se posao danas radi ručno?', 'Što ulazi i što mora izaći?', 'Tko to danas radi?'],
     ideaNote: 'Proces još nije jasan? Ako imate ideju, ali ne i jasan proces, javite se pa ćemo ga zajedno razjasniti.',
+    mailSubject: 'Proces za TLOWeb',
   },
   footer: {
     taglineLines: tagline,
     emailLabel: 'E-MAIL',
     portfolioLabel: 'PORTFOLIO',
     portfolioLinkLabel: 'Pogledajte naše radove',
-    // The year is written out, not computed: it is part of the approved copy and changes with a release, not a clock
-    copyright: '© 2026 TLOWeb',
     backToTop: 'Na vrh ↑',
   },
 } as const;
-
-export const metaDescription = `${pageText.hero.lead} ${pageText.hero.text}`;

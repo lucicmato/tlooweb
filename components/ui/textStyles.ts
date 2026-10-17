@@ -17,7 +17,8 @@ export const sectionHeadingClassName = 'text-h2 font-semibold';
 export const cardHeadingClassName = 'text-h3 font-semibold text-balance';
 export const itemHeadingClassName = 'text-item font-semibold';
 
-export const monoLabelClassName = 'font-mono text-label text-ink-muted';
+export const monoLabelTextClassName = 'font-mono text-label';
+export const monoLabelClassName = `${monoLabelTextClassName} text-ink-muted`;
 // Row numbers keep the body line height and drop 4px, so they sit level with the first line of the text beside them
 export const rowNumberClassName = `flex-none pt-1 ${monoLabelClassName} leading-body`;
 export const monoTagClassName = 'font-mono text-label-sm tracking-label text-ink-muted';

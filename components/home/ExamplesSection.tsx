@@ -1,24 +1,29 @@
 import { MarginLabelSection } from '@/components/layout/MarginLabelSection';
 import { ruledSectionClassName } from '@/components/ui/layoutStyles';
 import { itemHeadingClassName, rowNumberClassName, sectionHeadingClassName } from '@/components/ui/textStyles';
-import { pageText } from '@/lib/pageText';
+import type { PageText } from '@/lib/i18n/pageText';
+import { sectionLabels } from '@/lib/pageLabels';
 
 const EXAMPLES_HEADING_ID = 'examples-heading';
 
-export const ExamplesSection = () => {
+type ExamplesSectionProps = {
+  text: PageText['examples'];
+};
+
+export const ExamplesSection = ({ text }: ExamplesSectionProps) => {
   return (
     <MarginLabelSection
-      label={pageText.examples.label}
+      label={sectionLabels.examples}
       headingId={EXAMPLES_HEADING_ID}
       className={`${ruledSectionClassName} pb-14`}
     >
       <h2 id={EXAMPLES_HEADING_ID} className={sectionHeadingClassName}>
-        {pageText.examples.title}
+        {text.title}
       </h2>
-      <p className="mt-5 text-ink-muted">{pageText.examples.intro}</p>
+      <p className="mt-5 text-ink-muted">{text.intro}</p>
       {/* The strong rules close the table at top and bottom; the hairlines only separate rows inside it */}
       <ol className="mt-8 border-t border-line-strong">
-        {pageText.examples.items.map((item, index) => (
+        {text.items.map((item, index) => (
           <li
             key={item.title}
             className="flex flex-wrap gap-x-8 gap-y-2 border-b border-line py-6 last:border-line-strong"
