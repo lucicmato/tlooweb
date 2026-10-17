@@ -69,6 +69,7 @@ If no guardrail reported an error, say so. Do not invent errors or deliberately 
 ## Project conventions
 
 - Pages and layouts are Server Components in `app/`, Client Components are separate files starting with `'use client'`
+- Production builds use webpack (`next build --webpack`), `next dev` stays on Turbopack. Hostinger's build sandbox blocks loopback TCP, and Turbopack runs PostCSS and webpack loaders in child processes that connect to it over `127.0.0.1`, so a Turbopack build fails there with `node process exited before we could connect to it` (vercel/next.js#99887). Tailwind therefore goes through PostCSS (`postcss.config.mjs`), which both bundlers read. Do not add a `turbopack.rules` loader back or drop `--webpack` until Hostinger allows loopback connections
 - Next.js version notice: before writing Next.js code, read the relevant guide in `node_modules/next/dist/docs/` (resolved from the directory of the package that depends on `next`; in a monorepo the `next` package may not be visible from the root). The installed version can differ from your training data. `next dev` writes this notice into the `AGENTS.md` of the Next.js package itself (the `BEGIN:nextjs-agent-rules` block at the top of this file), so keep that block and commit it
 
 ## Code conventions

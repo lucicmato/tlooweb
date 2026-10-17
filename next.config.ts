@@ -10,14 +10,6 @@ const nextConfig: NextConfig = {
     // Safe only because CI runs `npm run typecheck` after the build; without that step this must be `false`
     ignoreBuildErrors: true,
   },
-  turbopack: {
-    rules: {
-      '*.css': {
-        loaders: ['@tailwindcss/turbopack'],
-        as: '*.css',
-      },
-    },
-  },
 };
 
 export default nextConfig;
