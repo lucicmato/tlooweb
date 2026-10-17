@@ -46,7 +46,11 @@ next-env.d.ts
 # Playwright MCP server output (agents use it)
 .playwright-mcp/
 
-# Git worktrees (agents can work in parallel worktrees)
+# Git worktrees: agents work in parallel checkouts. Claude Code creates them in `.claude/worktrees/`, `/.worktrees/` is
+# the workshop's folder. A worktree is a nested checkout: without these lines `git add -A` in the main checkout commits
+# it as a gitlink (a submodule entry without `.gitmodules`) and pushes an empty folder, and `prettier --check .`
+# checks every worktree's copy of the project.
 /.worktrees/
+/.claude/worktrees/
 /docs/
 /content/
